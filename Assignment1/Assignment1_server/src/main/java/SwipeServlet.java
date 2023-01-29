@@ -15,7 +15,11 @@ public class SwipeServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse res)
       throws IOException {
-    res.setContentType("text/plain");
+    processRequest(req, res);
+  }
+
+  private void processRequest(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    res.setContentType("application/json");
     String urlPath = req.getPathInfo();
     if (urlPath == null || urlPath.isEmpty()) {
       res.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -25,7 +29,8 @@ public class SwipeServlet extends HttpServlet {
     String[] urlParts = urlPath.split("/");
     if (urlParts.length != 2 || !(urlParts[1].equals("left") || urlParts[1].equals("right"))) {
       res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-      res.getWriter().write("Invalid inputs!");
+      res.getOutputStream().println("Invalid inputs!");
+      res.getOutputStream().flush();
       return;
     }
     Gson gson = new Gson();
@@ -39,25 +44,23 @@ public class SwipeServlet extends HttpServlet {
       if (!(Integer.parseInt(swipe.getSwiper()) >= 1
           && Integer.parseInt(swipe.getSwiper()) <= 5000)) {
         res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        res.getWriter().write("User not found!");
+        res.getOutputStream().println("User not found!");
+        res.getOutputStream().flush();
         return;
       }
       if (!(Integer.parseInt(swipe.getSwipee()) >= 1
           && Integer.parseInt(swipe.getSwipee()) <= 1000000)) {
         res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        res.getWriter().write("User not found!");
-        return;
-      }
-      if (swipe.getComment().length() > 256) {
-        res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        res.getWriter().write("Invalid inputs!");
+        res.getOutputStream().println("User not found!");
+        res.getOutputStream().flush();
         return;
       }
       res.setStatus(HttpServletResponse.SC_CREATED);
-      res.getWriter().write("Write successfully!");
+      res.getOutputStream().println("Write successfully!");
+      res.getOutputStream().flush();
     } catch (Exception ex) {
-      res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-      res.getWriter().write("Invalid inputs!");
+      res.getOutputStream().println("Invalid inputs!");
+      res.getOutputStream().flush();
     }
   }
 }

@@ -9,11 +9,17 @@ import java.util.*;
 public class SwipeApiExample {
 
   public static void main(String[] args) {
-    SwipeApi apiInstance = new SwipeApi();
-    SwipeDetails body = new SwipeDetails(); // SwipeDetails | response details
-    String leftorright = "leftorright_example"; // String | Ilike or dislike user
+    ApiClient apiClient = new ApiClient();
+    apiClient.setBasePath("http://localhost:8080/Assignment1_server_war_exploded");
+    SwipeApi apiInstance = new SwipeApi(apiClient);
+    SwipeDetails body = new SwipeDetails();
+    body.setSwiper("123");
+    body.setSwipee("12345");
+    body.setComment("you are not my type, loser");
+    String leftOrRight = "left";
     try {
-      apiInstance.swipe(body, leftorright);
+      ApiResponse<Void> res = apiInstance.swipeWithHttpInfo(body, leftOrRight);
+      System.out.println(res.getStatusCode());
     } catch (ApiException e) {
       System.err.println("Exception when calling SwipeApi#swipe");
       e.printStackTrace();
