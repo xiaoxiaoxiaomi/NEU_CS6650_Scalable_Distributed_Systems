@@ -1,22 +1,27 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import com.opencsv.CSVWriter;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
 public class Main {
 
   private static final int TOTAL_REQUESTS = 500000;
 
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) throws InterruptedException, IOException {
     BlockingQueue<SwipeData> buffer = new LinkedBlockingQueue<>();
     int numOfThreads = 200;
     (new Thread(new Producer(buffer, TOTAL_REQUESTS, numOfThreads))).start();
     AtomicInteger succCnt = new AtomicInteger(0);
     AtomicInteger failCnt = new AtomicInteger(0);
     CountDownLatch latch = new CountDownLatch(numOfThreads);
+    BlockingQueue<Record> records = new LinkedBlockingQueue<>();
     long startTime = System.currentTimeMillis();
     for (int i = 0; i < numOfThreads; i++) {
-      Thread thread = new Thread(new Consumer(buffer, succCnt, failCnt, latch));
+      Thread thread = new Thread(new Consumer(buffer, succCnt, failCnt, latch, records));
       thread.start();
     }
     latch.await();
@@ -24,7 +29,27 @@ public class Main {
     long throughput = (succCnt.get() + failCnt.get()) / wallTime;
     System.out.println("Number of successful requests: " + succCnt.get());
     System.out.println("Number of unsuccessful requests: " + failCnt.get());
-    System.out.println("The total run time (wall time): " + wallTime);
-    System.out.println("The total throughput in requests per second: " + throughput);
+    System.out.println("The total run time (secs): " + wallTime);
+    System.out.println("--------------------------------------------------");
+    DescriptiveStatistics stats = new DescriptiveStatistics();
+    String csvFile = "records.csv";
+    CSVWriter writer = new CSVWriter(new FileWriter(csvFile));
+    String[] header = {"Start Time", "Request Type", "Latency", "Response Code"};
+    writer.writeNext(header);
+    for (Record record : records) {
+      stats.addValue(record.getLatency());
+      String[] line = {String.valueOf(record.getStartTime()), record.getRequestType(),
+          String.valueOf(record.getLatency()), String.valueOf(record.getResponseCode())};
+      writer.writeNext(line);
+    }
+    writer.flush();
+    writer.close();
+    System.out.println("Mean response time (millisecs): " + stats.getMean());
+    System.out.println("Median response time (millisecs): " + stats.getPercentile(50));
+    System.out.println(
+        "P99 (99th percentile) response time (millisecs): " + stats.getPercentile(99));
+    System.out.println("Min response time (millisecs): " + stats.getMin());
+    System.out.println("Max response time (millisecs): " + stats.getMax());
+    System.out.println("Throughput (requests/second): " + throughput);
   }
 }

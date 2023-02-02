@@ -14,14 +14,16 @@ class Consumer implements Runnable {
   private BlockingQueue<SwipeData> buffer;
   private final AtomicInteger succCnt;
   private final AtomicInteger failCnt;
+  private BlockingQueue<Record> records;
 
   private CountDownLatch latch;
 
-  public Consumer(BlockingQueue<SwipeData> buffer, AtomicInteger succCnt, AtomicInteger failCnt, CountDownLatch latch) {
+  public Consumer(BlockingQueue<SwipeData> buffer, AtomicInteger succCnt, AtomicInteger failCnt, CountDownLatch latch, BlockingQueue<Record> records) {
     this.buffer = buffer;
     this.succCnt = succCnt;
     this.failCnt = failCnt;
     this.latch = latch;
+    this.records = records;
   }
 
   @Override
@@ -52,6 +54,7 @@ class Consumer implements Runnable {
     ApiClient apiClient = new ApiClient();
     apiClient.setBasePath(BASE_PATH);
     SwipeApi apiInstance = new SwipeApi(apiClient);
+    long startTime = System.currentTimeMillis();
     int cnt = 0;
     while (cnt < MAX_RETRY_TIMES) {
       try {
@@ -59,10 +62,13 @@ class Consumer implements Runnable {
         String leftOrRight = swipeData.getLeftOrRight();
         ApiResponse<Void> res = apiInstance.swipeWithHttpInfo(swipeDetails, leftOrRight);
         if (res.getStatusCode() == 200 || res.getStatusCode() == 201) {
+          long latency = System.currentTimeMillis() - startTime;
+          Record record = new Record(startTime, "POST", latency, res.getStatusCode());
+          records.put(record);
           return true;
         }
         cnt++;
-      } catch (ApiException e) {
+      } catch (ApiException | InterruptedException e) {
         e.printStackTrace();
       }
     }
