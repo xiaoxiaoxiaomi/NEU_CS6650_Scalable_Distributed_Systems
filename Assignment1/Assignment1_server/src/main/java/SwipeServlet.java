@@ -59,6 +59,7 @@ public class SwipeServlet extends HttpServlet {
       res.getOutputStream().println("Write successfully!");
       res.getOutputStream().flush();
     } catch (Exception ex) {
+      res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       res.getOutputStream().println("Invalid inputs!");
       res.getOutputStream().flush();
     }
