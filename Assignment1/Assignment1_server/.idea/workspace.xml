@@ -10,17 +10,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10568d99-e933-4930-8127-8d856594e6fd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Assignment1_client_part2/src/main/java/Record.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment1_client_part1/src/main/java/SwipeApiExample.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment1_client_part1/target/classes/SwipeApiExample.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment1_client_part2/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1_client_part2/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment1_client_part2/src/main/java/Consumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1_client_part2/src/main/java/Consumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment1_client_part2/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1_client_part2/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment1_client_part2/src/main/java/SwipeApiExample.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment1_client_part2/target/classes/Consumer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1_client_part2/target/classes/Consumer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/Assignment1.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Assignment1_client_part2/.ipynb_checkpoints/plot-checkpoint.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Assignment1_client_part2/plot.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment1_client_part2/records.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1_client_part2/records.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment1_client_part2/src/main/java/Producer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1_client_part2/src/main/java/Producer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment1_client_part2/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1_client_part2/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment1_client_part2/target/classes/SwipeApiExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment1_client_part2/target/classes/Producer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment1_client_part2/target/classes/Producer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Assignment1_server_war_exploded/WEB-INF/classes/Swipe.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Assignment1_server_war_exploded/WEB-INF/classes/SwipeServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Assignment1_server_war_exploded/WEB-INF/classes/SwipeServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SwipeDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SwipeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SwipeServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Swipe.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SwipeServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SwipeServlet.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +188,7 @@
       <updated>1675292720979</updated>
       <workItem from="1675292722543" duration="621000" />
       <workItem from="1675293364655" duration="1004000" />
-      <workItem from="1675294418554" duration="3918000" />
+      <workItem from="1675294418554" duration="6778000" />
     </task>
     <servers />
   </component>

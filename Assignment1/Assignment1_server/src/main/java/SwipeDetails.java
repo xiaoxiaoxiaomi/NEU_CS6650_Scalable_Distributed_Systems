@@ -1,10 +1,10 @@
-public class Swipe {
+public class SwipeDetails {
 
   private String swiper;
   private String swipee;
   private String comment;
 
-  public Swipe(String swiper, String swipee, String comment) {
+  public SwipeDetails(String swiper, String swipee, String comment) {
     this.swiper = swiper;
     this.swipee = swipee;
     this.comment = comment;

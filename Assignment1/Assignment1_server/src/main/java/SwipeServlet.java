@@ -7,6 +7,12 @@ import java.io.IOException;
 @WebServlet(name = "SwipeServlet", value = "/swipe/*")
 public class SwipeServlet extends HttpServlet {
 
+  private static final int SWIPER_ID_LOWER_BOUND = 1;
+  private static final int SWIPER_ID_UPPER_BOUND = 5000;
+  private static final int SWIPEE_ID_LOWER_BOUND = 1;
+  private static final int SWIPEE_ID_UPPER_BOUND = 1000000;
+  private static final int COMMENT_MAX_LENGTH = 256;
+
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -40,20 +46,25 @@ public class SwipeServlet extends HttpServlet {
       while ((s = req.getReader().readLine()) != null) {
         sb.append(s);
       }
-      Swipe swipe = gson.fromJson(sb.toString(), Swipe.class);
-      if (!(Integer.parseInt(swipe.getSwiper()) >= 1
-          && Integer.parseInt(swipe.getSwiper()) <= 5000)) {
+      SwipeDetails swipeDetails = gson.fromJson(sb.toString(), SwipeDetails.class);
+      if (!(Integer.parseInt(swipeDetails.getSwiper()) >= SWIPER_ID_LOWER_BOUND
+          && Integer.parseInt(swipeDetails.getSwiper()) <= SWIPER_ID_UPPER_BOUND)) {
         res.setStatus(HttpServletResponse.SC_NOT_FOUND);
         res.getOutputStream().println("User not found!");
         res.getOutputStream().flush();
         return;
       }
-      if (!(Integer.parseInt(swipe.getSwipee()) >= 1
-          && Integer.parseInt(swipe.getSwipee()) <= 1000000)) {
+      if (!(Integer.parseInt(swipeDetails.getSwipee()) >= SWIPEE_ID_LOWER_BOUND
+          && Integer.parseInt(swipeDetails.getSwipee()) <= SWIPEE_ID_UPPER_BOUND)) {
         res.setStatus(HttpServletResponse.SC_NOT_FOUND);
         res.getOutputStream().println("User not found!");
         res.getOutputStream().flush();
         return;
+      }
+      if (swipeDetails.getComment().length() > COMMENT_MAX_LENGTH) {
+        res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        res.getOutputStream().println("Invalid inputs!");
+        res.getOutputStream().flush();
       }
       res.setStatus(HttpServletResponse.SC_CREATED);
       res.getOutputStream().println("Write successfully!");
