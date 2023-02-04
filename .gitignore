@@ -1,12 +1,10 @@
-# IDEA files
 *.iml
-*.ipr
-*.iws
 .idea
+.ipynb_checkpoints
 
-# Maven target directory
+out
 target
+web
 
 Labs
 report
-.ipynb_checkpoints
