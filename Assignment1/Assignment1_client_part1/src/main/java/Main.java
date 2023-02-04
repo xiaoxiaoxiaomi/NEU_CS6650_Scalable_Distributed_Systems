@@ -6,16 +6,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Main {
 
   private static final int TOTAL_REQUESTS = 500000;
+  private static final int NUM_THREADS = 200;
 
   public static void main(String[] args) throws InterruptedException {
     BlockingQueue<SwipeData> buffer = new LinkedBlockingQueue<>();
-    int numOfThreads = 200;
-    (new Thread(new Producer(buffer, TOTAL_REQUESTS, numOfThreads))).start();
+    (new Thread(new Producer(buffer, TOTAL_REQUESTS, NUM_THREADS))).start();
     AtomicInteger succCnt = new AtomicInteger(0);
     AtomicInteger failCnt = new AtomicInteger(0);
-    CountDownLatch latch = new CountDownLatch(numOfThreads);
+    CountDownLatch latch = new CountDownLatch(NUM_THREADS);
     long startTime = System.currentTimeMillis();
-    for (int i = 0; i < numOfThreads; i++) {
+    for (int i = 0; i < NUM_THREADS; i++) {
       Thread thread = new Thread(new Consumer(buffer, succCnt, failCnt, latch));
       thread.start();
     }
@@ -24,7 +24,7 @@ public class Main {
     long throughput = (succCnt.get() + failCnt.get()) / wallTime;
     System.out.println("Number of successful requests: " + succCnt.get());
     System.out.println("Number of unsuccessful requests: " + failCnt.get());
-    System.out.println("The total run time (wall time): " + wallTime);
+    System.out.println("The total run time (secs): " + wallTime);
     System.out.println("The total throughput in requests per second: " + throughput);
   }
 }

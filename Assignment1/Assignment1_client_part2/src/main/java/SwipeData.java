@@ -1,11 +1,9 @@
 import io.swagger.client.model.SwipeDetails;
 
 public class SwipeData {
+
   private String leftOrRight;
   private SwipeDetails swipeDetails;
-
-  public SwipeData() {
-  }
 
   public SwipeData(String leftOrRight, SwipeDetails swipeDetails) {
     this.leftOrRight = leftOrRight;

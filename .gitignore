@@ -1,2 +1,11 @@
-Labs/
-Assignment1/report/
+# IDEA files
+*.iml
+*.ipr
+*.iws
+.idea
+
+# Maven target directory
+target
+
+Labs
+report

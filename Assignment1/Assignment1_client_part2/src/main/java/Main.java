@@ -10,17 +10,17 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 public class Main {
 
   private static final int TOTAL_REQUESTS = 500000;
+  private static final int NUM_THREADS = 200;
 
   public static void main(String[] args) throws InterruptedException, IOException {
     BlockingQueue<SwipeData> buffer = new LinkedBlockingQueue<>();
-    int numOfThreads = 200;
-    (new Thread(new Producer(buffer, TOTAL_REQUESTS, numOfThreads))).start();
+    (new Thread(new Producer(buffer, TOTAL_REQUESTS, NUM_THREADS))).start();
     AtomicInteger succCnt = new AtomicInteger(0);
     AtomicInteger failCnt = new AtomicInteger(0);
-    CountDownLatch latch = new CountDownLatch(numOfThreads);
+    CountDownLatch latch = new CountDownLatch(NUM_THREADS);
     BlockingQueue<Record> records = new LinkedBlockingQueue<>();
     long startTime = System.currentTimeMillis();
-    for (int i = 0; i < numOfThreads; i++) {
+    for (int i = 0; i < NUM_THREADS; i++) {
       Thread thread = new Thread(new Consumer(buffer, succCnt, failCnt, latch, records));
       thread.start();
     }

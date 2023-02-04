@@ -5,7 +5,11 @@ import java.util.concurrent.ThreadLocalRandom;
 class Producer implements Runnable {
 
   private static final String[] LEFT_OR_RIGHT = {"left", "right"};
-  private static final String[] COMMENTS = {"You are not my type, loser.", "I'm interested"};
+  private static final int SWIPER_ID_LOWER_BOUND = 1;
+  private static final int SWIPER_ID_UPPER_BOUND = 5000;
+  private static final int SWIPEE_ID_LOWER_BOUND = 1;
+  private static final int SWIPEE_ID_UPPER_BOUND = 1000000;
+  private static final int COMMENT_MAX_LENGTH = 256;
   private final BlockingQueue<SwipeData> buffer;
   private final int total;
   private final int numOfThreads;
@@ -38,13 +42,25 @@ class Producer implements Runnable {
 
   private SwipeData generate() {
     String leftOrRight = LEFT_OR_RIGHT[ThreadLocalRandom.current().nextInt(2)];
-    String swiper = String.valueOf(ThreadLocalRandom.current().nextInt(1, 5001));
-    String swipee = String.valueOf(ThreadLocalRandom.current().nextInt(1, 1000001));
-    String comment = COMMENTS[ThreadLocalRandom.current().nextInt(2)];
+    String swiper = String.valueOf(
+        ThreadLocalRandom.current().nextInt(SWIPER_ID_LOWER_BOUND, SWIPER_ID_UPPER_BOUND + 1));
+    String swipee = String.valueOf(
+        ThreadLocalRandom.current().nextInt(SWIPEE_ID_LOWER_BOUND, SWIPEE_ID_UPPER_BOUND + 1));
     SwipeDetails swipeDetails = new SwipeDetails();
     swipeDetails.setSwiper(swiper);
     swipeDetails.setSwipee(swipee);
+    String comment = generateComment(COMMENT_MAX_LENGTH);
     swipeDetails.setComment(comment);
     return new SwipeData(leftOrRight, swipeDetails);
+  }
+
+  private String generateComment(int length) {
+    char[] res = new char[length];
+    for (int i = 0; i < length; i++) {
+      // randomly generate a printable character
+      char randomChar = (char) ThreadLocalRandom.current().nextInt(33, 127);
+      res[i] = randomChar;
+    }
+    return new String(res);
   }
 }
