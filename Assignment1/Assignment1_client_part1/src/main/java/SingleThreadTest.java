@@ -23,6 +23,7 @@ public class SingleThreadTest {
     System.out.println("Number of unsuccessful requests: " + failCnt.get());
     System.out.println("The total run time (millisecs): " + wallTime);
     System.out.println("The average latency (millisecs): " + latency);
-    System.out.println("The expected throughput using Little’s Law (requests/second): " + 200 * 1000 / latency);
+    System.out.println("Number of threads: " + Main.NUM_THREADS);
+    System.out.println("The expected throughput using Little’s Law (requests/second): " + Main.NUM_THREADS * 1000 / latency);
   }
 }

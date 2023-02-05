@@ -10,7 +10,7 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 public class Main {
 
   private static final int TOTAL_REQUESTS = 500000;
-  private static final int NUM_THREADS = 200;
+  private static final int NUM_THREADS = 50;
 
   public static void main(String[] args) throws InterruptedException, IOException {
     BlockingQueue<SwipeData> buffer = new LinkedBlockingQueue<>();
