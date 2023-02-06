@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 class Consumer implements Runnable {
 
-  private static final String BASE_PATH = "http://54.213.148.76:8080/Assignment1_server_war/";
+  private static final String BASE_PATH = "http://35.87.37.220:8080/Assignment1_server_war/";
   private static final int MAX_RETRY_TIMES = 5;
   private BlockingQueue<SwipeData> buffer;
   private final AtomicInteger succCnt;
@@ -33,28 +33,31 @@ class Consumer implements Runnable {
   }
 
   private void consume() {
+    ApiClient apiClient = new ApiClient();
+    apiClient.setBasePath(BASE_PATH);
+    SwipeApi apiInstance = new SwipeApi(apiClient);
+    int curSuccCnt = 0, curFailCnt = 0;
     while (true) {
       try {
         SwipeData swipeData = buffer.take();
         if (swipeData.getLeftOrRight().equals("end")) {
           latch.countDown();
-          return;
+          break;
         }
-        if (post(swipeData)) {
-          succCnt.getAndIncrement();
+        if (post(swipeData, apiInstance)) {
+          curSuccCnt++;
         } else {
-          failCnt.getAndIncrement();
+          curFailCnt++;
         }
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
     }
+    this.succCnt.getAndAdd(curSuccCnt);
+    this.failCnt.getAndAdd(curFailCnt);
   }
 
-  private boolean post(SwipeData swipeData) {
-    ApiClient apiClient = new ApiClient();
-    apiClient.setBasePath(BASE_PATH);
-    SwipeApi apiInstance = new SwipeApi(apiClient);
+  private boolean post(SwipeData swipeData, SwipeApi apiInstance) {
     long startTime = System.currentTimeMillis();
     int cnt = 0;
     while (cnt < MAX_RETRY_TIMES) {

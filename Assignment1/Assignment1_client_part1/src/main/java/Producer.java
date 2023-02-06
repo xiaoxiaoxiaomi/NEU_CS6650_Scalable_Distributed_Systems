@@ -55,12 +55,11 @@ class Producer implements Runnable {
   }
 
   private String generateComment(int length) {
-    char[] res = new char[length];
+    StringBuilder sb = new StringBuilder();
     for (int i = 0; i < length; i++) {
       // randomly generate a printable character
-      char randomChar = (char) ThreadLocalRandom.current().nextInt(33, 127);
-      res[i] = randomChar;
+      sb.append((char) ThreadLocalRandom.current().nextInt(33, 127));
     }
-    return new String(res);
+    return sb.toString();
   }
 }
