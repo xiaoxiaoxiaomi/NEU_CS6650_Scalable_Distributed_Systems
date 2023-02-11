@@ -11,14 +11,19 @@ public class Main {
 
   private static final int TOTAL_REQUESTS = 500000;
   private static final int NUM_THREADS = 150;
+  private static BlockingQueue<SwipeData> buffer;
+  private static AtomicInteger succCnt;
+  private static AtomicInteger failCnt;
+  private static CountDownLatch latch;
+  private static BlockingQueue<Record> records;
 
   public static void main(String[] args) throws InterruptedException, IOException {
-    BlockingQueue<SwipeData> buffer = new LinkedBlockingQueue<>();
+    buffer = new LinkedBlockingQueue<>();
     (new Thread(new Producer(buffer, TOTAL_REQUESTS, NUM_THREADS))).start();
-    AtomicInteger succCnt = new AtomicInteger(0);
-    AtomicInteger failCnt = new AtomicInteger(0);
-    CountDownLatch latch = new CountDownLatch(NUM_THREADS);
-    BlockingQueue<Record> records = new LinkedBlockingQueue<>();
+    succCnt = new AtomicInteger(0);
+    failCnt = new AtomicInteger(0);
+    latch = new CountDownLatch(NUM_THREADS);
+    records = new LinkedBlockingQueue<>();
     long startTime = System.currentTimeMillis();
     for (int i = 0; i < NUM_THREADS; i++) {
       Thread thread = new Thread(new Consumer(buffer, succCnt, failCnt, latch, records));
