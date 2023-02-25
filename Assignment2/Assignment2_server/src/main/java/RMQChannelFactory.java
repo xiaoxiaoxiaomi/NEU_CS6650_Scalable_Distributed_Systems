@@ -31,7 +31,7 @@ public class RMQChannelFactory extends BasePooledObjectFactory<Channel> {
 
   @Override
   public PooledObject<Channel> wrap(Channel channel) {
-    //System.out.println("Wrapping channel");
+    // System.out.println("Wrapping channel");
     return new DefaultPooledObject<>(channel);
   }
 

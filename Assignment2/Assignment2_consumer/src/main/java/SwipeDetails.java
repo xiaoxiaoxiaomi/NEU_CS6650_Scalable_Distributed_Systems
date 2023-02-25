@@ -27,20 +27,4 @@ public class SwipeDetails {
   public String getComment() {
     return comment;
   }
-
-  public void setLeftOrRight(String leftOrRight) {
-    this.leftOrRight = leftOrRight;
-  }
-
-  public void setSwiper(String swiper) {
-    this.swiper = swiper;
-  }
-
-  public void setSwipee(String swipee) {
-    this.swipee = swipee;
-  }
-
-  public void setComment(String comment) {
-    this.comment = comment;
-  }
 }
