@@ -20,7 +20,7 @@ public class SwipeServlet extends HttpServlet {
   private static final int SWIPEE_ID_LOWER_BOUND = 1;
   private static final int SWIPEE_ID_UPPER_BOUND = 1000000;
   private static final int COMMENT_MAX_LENGTH = 256;
-  private static final String SERVER = "34.215.31.251";
+  private static final String SERVER = "54.71.64.218";
   private ConnectionFactory factory;
   private GenericObjectPool<Channel> channelPool;
   private static final String QUEUE_NAME = "test";
@@ -93,7 +93,6 @@ public class SwipeServlet extends HttpServlet {
         res.getOutputStream().println("Invalid inputs!");
         res.getOutputStream().flush();
       }
-      // format the incoming Swipe data and send it as a payload to a remote queue
       swipeDetails.setLeftOrRight(urlParts[1]);
       try {
         Channel channel;

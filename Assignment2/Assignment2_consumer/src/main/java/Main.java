@@ -7,7 +7,7 @@ import java.util.concurrent.TimeoutException;
 
 public class Main {
 
-  private static final String SERVER = "34.215.31.251";
+  private static final String SERVER = "54.71.64.218";
   private static final int NUM_THREADS = 200;
   static ConcurrentHashMap<String, int[]> userLikesDislikes = new ConcurrentHashMap<>();
   static ConcurrentHashMap<String, ConcurrentLinkedQueue<String>> userPotentialMatches = new ConcurrentHashMap<>();
