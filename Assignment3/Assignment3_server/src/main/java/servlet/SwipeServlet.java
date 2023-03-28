@@ -23,7 +23,7 @@ public class SwipeServlet extends HttpServlet {
   private static final int SWIPEE_ID_LOWER_BOUND = 1;
   private static final int SWIPEE_ID_UPPER_BOUND = 1000000;
   private static final int COMMENT_MAX_LENGTH = 256;
-  private static final String SERVER = "localhost";
+  private static final String SERVER = "54.185.41.220";
   private ConnectionFactory factory;
   private GenericObjectPool<Channel> channelPool;
   private static final String QUEUE_NAME = "test";
@@ -32,8 +32,8 @@ public class SwipeServlet extends HttpServlet {
   public void init() {
     factory = new ConnectionFactory();
     factory.setHost(SERVER);
-    factory.setUsername("guest");
-    factory.setPassword("guest");
+    factory.setUsername("rabbit");
+    factory.setPassword("rabbit");
     Connection connection;
     try {
       connection = factory.newConnection();

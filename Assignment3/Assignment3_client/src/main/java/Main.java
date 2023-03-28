@@ -6,7 +6,7 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
 public class Main {
 
-  public static final String BASE_PATH = "http://localhost:8080/Assignment3_server_war_exploded/";
+  public static final String BASE_PATH = "http://34.220.169.58:8080/Assignment3_server_war/";
   private static final int TOTAL_REQUESTS = 500000;
   public static final int NUM_THREADS = 200;
   private static BlockingQueue<SwipeData> buffer;

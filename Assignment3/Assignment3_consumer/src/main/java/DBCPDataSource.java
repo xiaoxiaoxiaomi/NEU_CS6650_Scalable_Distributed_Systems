@@ -4,10 +4,10 @@ public class DBCPDataSource {
 
   private static BasicDataSource dataSource;
   // NEVER store sensitive information below in plain text!
-  private static final String HOST_NAME = "localhost";
+  private static final String HOST_NAME = "swipe-data-db-instance.ckyq9ljfemg7.us-west-2.rds.amazonaws.com";
   private static final String PORT = "3306";
   private static final String DATABASE = "swipe_data";
-  private static final String USERNAME = "root";
+  private static final String USERNAME = "admin";
   private static final String PASSWORD = "12345678";
 
   static {

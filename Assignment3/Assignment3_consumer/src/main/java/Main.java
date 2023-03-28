@@ -5,14 +5,14 @@ import java.util.concurrent.TimeoutException;
 
 public class Main {
 
-  private static final String SERVER = "localhost";
+  private static final String SERVER = "54.185.41.220";
   private static final int NUM_THREADS = 200;
 
   public static void main(String[] argv) throws IOException, TimeoutException {
     ConnectionFactory factory = new ConnectionFactory();
     factory.setHost(SERVER);
-    factory.setUsername("guest");
-    factory.setPassword("guest");
+    factory.setUsername("rabbit");
+    factory.setPassword("rabbit");
     Connection connection = factory.newConnection();
     for (int i = 0; i < NUM_THREADS; i++) {
       Thread thread = new Thread(new Consumer(connection));
